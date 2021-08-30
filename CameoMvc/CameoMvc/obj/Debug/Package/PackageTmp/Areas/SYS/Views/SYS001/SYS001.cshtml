@@ -1,0 +1,54 @@
+﻿@using CameoMvc.Models;
+@model M_Login
+@Html.Raw(TempData["msg"])
+
+<div>
+    <div>
+        @using (Html.BeginForm("SYS001", "SYS001", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="sexyborder">
+                <div class="function_name_text_box">
+                    <img id="imgFunction" src="~/images/CameoLogo.png" class="function_name_pic_box">
+                    <span>資料維護</span>
+                </div>
+                <br />
+            </div>
+            <br />
+            <div class="sexyborder">
+                    <div class="form-group">
+                        <label for="txtUserNo">工號</label>
+                        <input type="text" class="form-control" id="txtUserNo" placeholder="請輸入工號">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtUserName">姓名</label>
+                        <input type="text" class="form-control" id="txtUserName" placeholder="請輸入姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail1">Email</label>
+                        <input type="email" class="form-control" id="txtEmail1" placeholder="請輸入email">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNewPw">新密碼</label>
+                        <input type="password" class="form-control" id="txtNewPw" placeholder="請輸入新密碼">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChkPw">確認密碼</label>
+                        <input type="password" class="form-control" id="txtChkPw" placeholder="請確認新密碼">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">個人寫真</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="txtImgPath">
+                                <label class="custom-file-label" for="txtImgPath">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        }
+    </div>
+</div>

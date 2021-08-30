@@ -1,0 +1,666 @@
+﻿
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES Syste</title>
+    <link rel="icon" href="/images/CameoLogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../Scripts/jquery-ui/jquery-ui.min.css" />
+    <link rel="stylesheet" href="../../Content/bootstrap.css" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="../../Content/font.google.css" />
+    <!-- Font Awesome -->
+    <link href="../../Content/fontawesome/css/all.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../Scripts/AdminLTE/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="../../Content/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../../Scripts/overlayScrollbars/css/OverlayScrollbars.min.css" />
+    <link rel="stylesheet" href="../../Content/StyleShared.css" />
+
+    <!-- jQuery -->
+    <script src="/Scripts/jquery-3.3.1.js"></script>
+
+    <script src="/Scripts/jquery-ui/jquery-ui.min.js"></script>
+    
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script src="/Scripts/AdminLTE/dist/js/demo.js"></script>
+    <script src="/Scripts/chart.min.js"></script>
+    <script src="/Scripts/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    
+
+    <!-- jQuery -->
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.button);
+    </script>
+
+    <script type="text/javascript" src="/Scripts/jquery.browser.mobile.js"></script>
+    <script type="text/javascript" src="/Scripts/zxing/zxing.lib.0.18.4.js"></script>
+
+    <script src="/Scripts/cameo.js"></script>
+
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.button);
+    </script>
+
+    <script type="text/javascript" src="/Scripts/jquery.browser.mobile.js"></script>
+    <script type="text/javascript" src="/Scripts/zxing/zxing.lib.0.18.4.js"></script>
+
+    <script src="/Scripts/cameo.js"></script>
+</head>
+<body class="hold-transition sidebar-dark-primary layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <!-- Header Navbar -->
+        <!-- <nav class="navbar navbar-static-top" role="navigation"> -->
+        <nav class="main-header navbar navbar-expand-lg navbar-info navbar-dark">
+            <!-- Sidebar toggle button-->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li id="nav_li_txtTime" class="nav-item">
+                    <div id="nav_txtTime" style="font-size:18px;text-align:center;margin-left:15px;color:#ffffff;">
+                    </div>
+                </li>
+                <li id="nav_li_size" class="nav-item">
+                    <div id="nav_txtSize" style="font-size:12px;text-align:center;margin-left:15px;color:#ffffff;">
+                    </div>
+                </li>
+            </ul>
+            <!-- .ml-auto: Navbar Right Menu -->
+            <ul class="navbar-nav ml-auto" style="vertical-align: middle;text-align: center;">
+                <!-- User Account Menu -->
+                <li id="nav_li_UserMenu" class="dropdown user user-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- 顯示圖像 套用 AdminLTE -->
+                        <img src="/images/Anonymous.jpg" class="brand-image img-circle elevation-3" alt="User Image" style="height:50px;width:50px;">
+                        <!-- hidden-xs：在小型設備上隱藏用戶名，僅顯示圖像 -->
+                        <span style="color:#ffffff;font-size:16px;"> </span>
+                        <span style="color:#ffffff;font-size:18px;"><strong> </strong></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <small></small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="/Home/ModifyPassword" class="btn btn-primary">修改密碼</a>
+                                    </td>
+                                    <td>
+                                        <a href="/Home/Login" class="btn btn-primary">登出</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <!-- Menu Footer-->
+
+                    </ul>
+                </li>
+                <!-- Fullscreen Toggle Button -->
+                <li id="nav_li_FullScreen" class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <div style="background-color:#367FA9;height:70px">
+                <a href="https://www.cameo.com.tw/">
+                    <img src="/images/CameoLogo_W.png" alt="CAMEO" class="brand-image" style="margin-left:20px;width: 200px;opacity: .8;">
+                </a>
+            </div>
+            <!-- Sidebar -->
+            <div class="sidebar" style="font-size:18px;">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    系統管理
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/SYS/SYS003/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>網頁功能管理</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/SYS/SYS001/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>個人基本資料</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/SYS/SYS002/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>權限設定</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/SYS/SYS990/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>我的系統</p>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    製造
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/MFG/MFG003/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>異常大類小類關聯</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/MFG/MFG001/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>異常工時</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/MFG/MFG002/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>維護異常大類</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-plus-square"></i>
+                                        <p>
+                                            SMT
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/SMT/SMT001/Index" class="nav-link">
+                                                <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                <p>SMT標工</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/SMT/SMT002/Index" class="nav-link">
+                                                <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                <p>防潮櫃狀態</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    品保系統
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/QAD/QAD001/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>客驗借出/歸還</p>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    報表
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/RPT/RPT001/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file text-lightblue"></i>
+                                        <p>流程卡</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-plus-square"></i>
+                                        <p>
+                                            製程資訊
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/RPT/RPT004/Index" class="nav-link">
+                                                <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                <p>包裝資訊</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-plus-square"></i>
+                                        <p>
+                                            不良資訊
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/RPT/RPT002/Index" class="nav-link">
+                                                <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                <p>不良紀錄</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/HOME/Login" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+                                <p>登出</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div id="div_content" class="content-wrapper px-2 py-2">
+            <section class="content">
+
+
+                <div>
+                    <div>
+                        <form action="/SMT/SMT002" class="form-horizontal" method="post">
+                            <input name="__RequestVerificationToken" type="hidden" value="Fbf7KB9vdpuAy8PWjMaWPMAVg44NyC9_v2enOmYEtRszugMK1zsAObCIBk3RcCdU-8vKAuqSQjvwRe9EEbM5PGLQ-5WXoWjMrN198GU5bRc1" /><input data-val="true" data-val-required="FLAG 欄位是必要項。" id="FLAG" name="FLAG" type="hidden" value="True" /><input id="FAB_ID" name="FAB_ID" type="hidden" value="0" /><input id="USER_ID" name="USER_ID" type="hidden" value="10000513" /><input id="USER_NO" name="USER_NO" type="hidden" value="N00703" /><input id="USER_NAME" name="USER_NAME" type="hidden" value="黃明弘" /><input id="ERR" name="ERR" type="hidden" value="" />
+                            <!-- 抬頭功能名稱 -->
+                            <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+
+                            <div id="divCard" class="card">
+                                <div class="card-header bg-gradient-primary">
+                                    <h3 class="card-title">防潮櫃溫濕度(SMT002)</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">防 潮 櫃</div>
+                                                </div>
+                                                <select class="form-control input-md" id="QM_Device" name="QM.Device">
+                                                    <option value="172.20.52.10">172.20.52.10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div id="bootstrap-datepicker" class="input-group date">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">查詢日期</div>
+                                                </div>
+                                                <input class="form-control datetimepicker-input" id="QM_sDate" name="QM.sDate" placeholder="YYYY/MM/DD" type="text" value="2021/04/25" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <input checked="checked" class="form-check" data-val="true" data-val-required="Timing 欄位是必要項。" id="QM_Timing" name="QM.Timing" type="checkbox" value="true" /><input name="QM.Timing" type="hidden" value="false" />
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" value="定時紀錄模式" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <input class="form-check" data-val="true" data-val-required="Exception 欄位是必要項。" id="QM_Exception" name="QM.Exception" type="checkbox" value="true" /><input name="QM.Exception" type="hidden" value="false" />
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" value="異常紀錄模式" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <button name="button" type="submit" class="btn btn-primary col-12" value="Query">查詢</button>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <input id="rdo_Rh" name="selChart" type="radio" value="RH" checked="checked" />
+                                                    </span>
+                                                    <input type="text" class="form-control" value="濕度紀錄" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <input id="rdo_Tp" name="selChart" type="radio" value="TP" />
+                                                    </span>
+                                                    <input type="text" class="form-control" value="溫度紀錄" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                $('input[type=radio][name=selChart]').change(function () {
+                                    if (this.value == 'RH') {
+                                        $("#divChart_RH").show();
+                                        $("#divChart_TP").hide();
+                                    }
+                                    else if (this.value == 'TP') {
+                                        $("#divChart_RH").hide();
+                                        $("#divChart_TP").show();
+                                    }
+                                });
+
+                                if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+                                    var datepicker = $.fn.datepicker.noConflict();
+                                    $.fn.bootstrapDP = datepicker;
+                                }
+                                $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+                                $("#QM_sDate").datepicker({
+                                    dateFormat: "yy/mm/dd",
+                                    showButtonPanel: true,
+                                    changeMonth: true,
+                                    changeYear: true
+                                });
+                            </script>
+
+
+                            <div id="divChart_RH" style="">
+                                <canvas id="myChart_RH" width="200" height="48"></canvas>
+                            </div>
+
+                            <script type="text/javascript">
+                                var ctx = document.getElementById("myChart_RH");
+                                var myChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
+                                        datasets: [{
+                                            label: "濕度",
+                                            data: [6, 6, 5, 6, 6, 6, 4, 5, 5, 6, 6, 5, 6, 6, 5, 5, 5, 6, 6, 7, 5, 4, 6, 6],
+                                            borderColor: 'rgb(255,135,20)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(255,228,202)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }, {
+                                            label: '下限',
+                                            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            fill: false,
+                                            backgroundColor: 'rgba(255,165,0,0.3)',
+                                            borderColor: 'rgb(255,149,202)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(255,217,236)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }, {
+                                            label: '上限',
+                                            data: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
+                                            fill: false,
+                                            backgroundColor: 'rgba(255,165,0,0.3)',
+                                            borderColor: 'rgb(130,217,0)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(222,255,172)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }]
+                                    }
+                                });
+                            </script>
+
+
+                            <div id="divChart_TP" style="display:none">
+                                <canvas id="myChart_TP" width="200" height="48"></canvas>
+                            </div>
+
+                            <script type="text/javascript">
+                                var ctx = document.getElementById("myChart_TP");
+                                var myChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
+                                        datasets: [{
+                                            label: "溫度",
+                                            data: [23, 23, 23, 23, 23, 23, 23, 23, 22, 23, 23, 23, 23, 23, 24, 23, 23, 22, 23, 23, 23, 23, 22, 23],
+                                            borderColor: 'rgb(255,135,20)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(255,228,202)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }, {
+                                            label: '下限',
+                                            data: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+                                            fill: false,
+                                            backgroundColor: 'rgba(255,165,0,0.3)',
+                                            borderColor: 'rgb(255,149,202)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(255,217,236)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }, {
+                                            label: '上限',
+                                            data: [15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15],
+                                            fill: false,
+                                            backgroundColor: 'rgba(255,165,0,0.3)',
+                                            borderColor: 'rgb(130,217,0)',
+                                            pointStyle: "circle",
+                                            pointBackgroundColor: 'rgb(222,255,172)',
+                                            pointRadius: 5,
+                                            pointHoverRadius: 10
+                                        }]
+                                    }
+                                });
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021 <a href="https://www.cameo.com.tw/">Cameo Corporation</a>.</strong>All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0-Pre-alpha
+            </div>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        //鍵盤鍵入事件處理
+        function keypressHandle(e) {
+            //判斷是否為 Enter
+            if (e.which == 13) {
+                console.log(e);
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#btnQuery').focus().click();//give your submit an ID
+            }
+        }
+
+        $(function () {
+            //在導覽列的樣式
+            HeadNavbarStyle();
+
+            //修改密碼之 新密碼 顯示/隱藏
+            $('#show_passwordNew').hover(
+                function () {
+                    //Change the attribute to text
+                    $('#txtPasswordNew').attr('type', 'text');
+                    $('#iconEyeNew').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+                },
+                function () {
+                    //Change the attribute back to password
+                    $('#txtPasswordNew').attr('type', 'password');
+                    $('#iconEyeNew').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+                });
+            //修改密碼之 密碼確認 顯示/隱藏
+            $('#show_passwordChk').hover(
+                function () {
+                    //Change the attribute to text
+                    $('#txtPasswordChk').attr('type', 'text');
+                    $('#iconEyeChk').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+                },
+                function () {
+                    //Change the attribute back to password
+                    $('#txtPasswordChk').attr('type', 'password');
+                    $('#iconEyeChk').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+                });
+        });
+
+        //處理 QR Code
+        $(window).on('load', function () {
+            $("#divVideo").dialog({
+                autoOpen: false,
+                show: { effect: "blind", duration: 1000 },
+                hide: { effect: "explode", duration: 1000 }
+            });
+
+            let selectedDeviceId;
+            let InputId;
+            const codeReader = new ZXing.BrowserMultiFormatReader();
+            console.log('ZXing code reader initialized');
+            codeReader.listVideoInputDevices()
+                .then((videoInputDevices) => {
+                    const sourceSelect = $("#sourceSelect").get(0);
+                    if (videoInputDevices.length >= 1) {
+                        videoInputDevices.reverse();
+                        selectedDeviceId = videoInputDevices[0].deviceId;
+                        videoInputDevices.forEach((element) => {
+                            const sourceOption = document.createElement('option');
+                            console.log(element);
+                            sourceOption.text = element.label;
+                            sourceOption.value = element.deviceId;
+                            sourceSelect.appendChild(sourceOption);
+                        })
+
+                        sourceSelect.onchange = () => {
+                            codeReader.reset();
+                            $("#txt1").val('');
+                            console.log('Reset.');
+                            selectedDeviceId = sourceSelect.value;
+
+                            codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+                                if (result) {
+                                    console.log(result);
+                                    document.getElementById(InputId).value = result.text;
+
+                                    $('#modal-qr').modal('hide');
+                                    //$("#divVideo").dialog("close");
+                                }
+                                if (err && !(err instanceof ZXing.NotFoundException)) {
+                                    console.error(err);
+                                    document.getElementById(InputId).value = err;
+                                }
+                            })
+                            console.log('Started continous decode from camera with id ${selectedDeviceId}');
+                        };
+                        $("#SelectSrc").css('display', 'block');
+                        $("#ChangeSrc").css('display', 'none');
+                    }
+                    else if (videoInputDevices.length = 10) {
+                        $("#SelectSrc").css('display', 'none');
+                        $("#ChangeSrc").css('display', 'block');
+                        $("#ChangeSrc").on('click', function () { });
+                    }
+                    else {
+                        $('#modal-qr').css('display', 'none');
+                        //$("#divVideo").css('display', 'none');
+                    }
+
+                    $('[id^=btnScan]').on('click', function () {
+                        InputId = $(this).attr('name');
+
+                        //$("#divVideo").dialog("open");
+
+                        codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+                            if (result) {
+                                console.log(result);
+                                document.getElementById(InputId).value = result.text;
+
+                                $('#modal-qr').modal('hide');
+                                //$("#divVideo").dialog("close");
+                            }
+                            if (err && !(err instanceof ZXing.NotFoundException)) {
+                                console.error(err);
+                                document.getElementById(InputId).value = err;
+                            }
+                        })
+                        console.log('Started continous decode from camera with id ${selectedDeviceId}');
+                    });
+
+                })
+                .catch((err) => {
+                    console.error(err)
+                })
+        });
+    </script>
+</body>
+</html>

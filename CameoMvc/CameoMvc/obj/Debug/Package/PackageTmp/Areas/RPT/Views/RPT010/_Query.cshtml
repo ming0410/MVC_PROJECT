@@ -1,0 +1,105 @@
+﻿@using CameoMvc.Areas.RPT.Models;
+@model M_RPT010
+
+@{
+    <!-- 抬頭功能名稱 -->
+    var TitleText = Model.FUNC_NAME + "(" + Model.FUNC + ")";
+
+    <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    if (Model.PHON)
+    {
+        divCard_Style = "card collapsed-card";
+        imgCard_Style = "fas fa-plus";
+    }
+}
+
+<!-- 導入 QR Code Reader -->
+<div id="modal-qr" class="modal fade show" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" width="400">
+            <div class="modal-header">
+                <!-- 選擇影像來源 -->
+                <div id="SelectSrc" style="display:none">
+                    <label for="sourceSelect">選擇鏡頭</label>
+                    <select id="sourceSelect" style="max-width:400px"></select>
+                </div>
+                <div id="ChangeSrc">
+                    <a class="btn btn-app bg-success">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        更換鏡頭
+                    </a>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video id="video" width="400" height="300"></video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">@TitleText</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="margin-top:2px;"></div>
+        <!-- 輸入框 -->
+        <!-- 當有多個按鍵時，為了不要直接觸發錯的Submit，要加入 keypressHandle -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.WO, new { id = "txt1", name = "qrtxt", @placeholder = "工單", @class = "form-control", @autofocus = "" })
+                    <div id="btnScan1" name="txt1" class="input-group-addon" data-toggle="modal" data-target="#modal-qr">
+                        <div class="input-group-text">
+                            <span class="fas fa-barcode"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.MAC, new { id = "txt2", name = "qrtxt", @placeholder = "MAC", @class = "form-control" })
+                    <div id="btnScan2" name="txt2" class="input-group-addon" data-toggle="modal" data-target="#modal-qr">
+                        <div class="input-group-text">
+                            <span class="fas fa-barcode"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.DLINK, new { id = "txt3", name = "qrtxt", @placeholder = "D-LINK NO.", @class = "form-control" })
+                    <div id="btnScan3" name="txt3" class="input-group-addon" data-toggle="modal" data-target="#modal-qr">
+                        <div class="input-group-text">
+                            <span class="fas fa-barcode"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 按鍵 -->
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <button name="button" type="submit" class="btn btn-primary col-12" value="QUERY">查詢</button>
+            </div>
+            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <button name="button" type="submit" class="btn btn-info col-12" value="EXPORT">匯出</button>
+            </div>
+        </div>
+    </div>
+</div>

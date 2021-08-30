@@ -1,0 +1,57 @@
+﻿@using CameoMvc.Models;
+
+<header class="main-header">
+    <!-- Logo -->
+    <a href="/" class="logo">
+        @*<img src="images/Logo.png">
+            <span class="logo-mini">Namliong</span>*@
+        <span class="logo-mini"><i class="fa fa-home"></i></span>
+        <span class="logo-lg"><b>Cameo MES System</b></span>
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- The user image in the navbar-->
+                        <img src="~/images/Anonymous.jpg" class="user-image" alt="User Image">
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <span class="hidden-xs">登入者 : @Session[SessionKey._USER_NAME]</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- The user image in the menu -->
+                        <li class="user-header">
+                            <img src="~/images/Anonymous.jpg" class="img-circle" alt="User Image">
+                            <p>
+                            </p>
+                        </li>
+                        <li class="user-body">
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="/Home/ModifyPassword" class="btn btn-default btn-flat">修改密碼</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/Home/Login" class="btn btn-default btn-flat">登出</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="user-footer">
+                    <div class="btn btn-primary">
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

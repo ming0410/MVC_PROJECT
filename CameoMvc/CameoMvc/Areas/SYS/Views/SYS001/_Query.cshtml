@@ -1,0 +1,85 @@
+﻿@using CameoMvc.Areas.SYS.Models;
+@using CameoMvc.Models;
+@model M_SYS001
+
+<!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+@{
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    if (Model.PHON)
+    {
+        divCard_Style = "card collapsed-card";
+        imgCard_Style = "fas fa-plus";
+    }
+}
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">個人基本資料(SYS001)</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- 輸入框 -->
+        <!-- 當有多個按鍵時，為了不要直接觸發 Submit，要加入 keypressHandle -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.NUMBER, new { @placeholder = "工號", @class = "form-control", @autofocus = "", @onkeypress = "keypressHandle(event);" })
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.NUMBER)
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.NAME, new { @placeholder = "姓名", @class = "form-control", @onkeypress = "keypressHandle(event);" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.DEPT, new { @placeholder = "部門", @class = "form-control", @onkeypress = "keypressHandle(event);" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.PasswordFor(model => model.QM.PW_NEW, new { @placeholder = "密碼", @class = "form-control", data_toggle = "password", @onkeypress = "keypressHandle(event);" })
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.NUMBER)
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group">
+                    @Html.PasswordFor(model => model.QM.PW_CHK, new { @placeholder = "密碼確認", @class = "form-control", data_toggle = "password", @onkeypress = "keypressHandle(event);" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.EMAIL, new { @placeholder = "電子信箱", @class = "form-control", @onkeypress = "keypressHandle(event);" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button id="btnQuery" name="button" type="submit" class="btn btn-lg btn-primary" value="Query">查詢</button>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button name="button" type="submit" class="btn btn-lg btn-success" value="Lend">儲存</button>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button name="button" type="submit" class="btn btn-lg btn-danger" value="Back">刪除</button>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <a href="/SYS/SYS001/Index"><div class="btn btn-lg btn-info">清除</div></a>
+            </div>
+        </div>
+    </div>
+</div>

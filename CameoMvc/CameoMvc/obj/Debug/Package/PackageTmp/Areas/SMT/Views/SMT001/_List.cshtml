@@ -1,0 +1,114 @@
+﻿@using CameoMvc.Areas.SMT.Models;
+@model M_SMT001
+
+<div>
+    <section class="content">
+        @if (@Model.LIST_RM.Count > 0)
+        {
+            if (Model.PHON)
+            {
+                <div class="row">
+                    @foreach (var item in Model.LIST_RM)
+                    {
+                        <div id="divCard" class="card card-outline card-dark collapsed-card">
+                            <div class="card-header">
+                                <h5 class="card-title">@item.Line &nbsp; @item.Model</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">料號 &nbsp; @item.Part</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">@item.Side &nbsp; 面</div>
+                                    <div class="col">@item.StdWT &nbsp; 秒</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button id="btnSel" name="button" type="submit" class="btn btn-lg btn-primary" value="SelRow|@item.Part|@item.Side|@item.LineId">
+                                            <i class="fa fa-hand-point-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <button id="btnSel" name="button" type="submit" class="btn btn-lg btn-primary" value="DelRow|@item.Part|@item.Side|@item.LineId" 
+                                                OnClientClick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div id="divList" class="container-fluid table-responsive-sm" style="overflow: auto; height:215px;">
+                    <table id="tbList" class='table table-bordered table-hover table-striped'>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th nowrap="nowrap" style="text-align:center;">選擇</th>
+                                <th nowrap="nowrap" style="text-align:center;">刪除</th>
+                                <th nowrap="nowrap" style="text-align:center;">機種</th>
+                                <th nowrap="nowrap" style="text-align:center;">料號</th>
+                                <th nowrap="nowrap" style="text-align:center;">製程面</th>
+                                <th nowrap="nowrap" style="text-align:center;">線別</th>
+                                <th nowrap="nowrap" style="text-align:center;">標準工時(秒)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LIST_RM)
+                            {
+                            <tr class="table-light">
+                                <td nowrap="nowrap" style="text-align:center;" Class="SelRow">
+                                    <button id="btnSel" name="button" type="submit" class="btn btn-sm btn-primary" value="SelRow|@item.Part|@item.Side|@item.LineId" onclick="btnSel_Click();">
+                                        <i class="fa fa-hand-point-right"></i>
+                                    </button>
+                                </td>
+                                <td nowrap="nowrap" style="text-align:center;" Class="DelRow">
+                                    <button id="btnSel" name="button" type="submit" class="btn btn-sm btn-danger" value="DelRow|@item.Part|@item.Side|@item.LineId" OnClientClick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td nowrap="nowrap" style="text-align:center;">@item.Model</td>
+                                <td nowrap="nowrap" style="text-align:center;">@item.Part</td>
+                                <td nowrap="nowrap" style="text-align:center;">@item.Side</td>
+                                <td nowrap="nowrap" style="text-align:center;">@item.Line</td>
+                                <td nowrap="nowrap" style="text-align:center;">@item.StdWT</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="pager">
+                <table>
+                    <tr class="GridEmptyRowStyle">
+                        <td>無資料</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </section>
+</div>
+
+<style type="text/css">
+    #tbList thead tr {
+        border: 1px solid #ffffff;
+    }
+    #tbList thead tr th {
+        position: sticky;
+        top: 0; /* 列首永遠固定於上 */
+        border: 1px solid #ffffff;
+    }
+</style>
+<script type="text/javascript">
+    $("#divList").height($("#div_content").height() - $("#divCard").outerHeight() - 27);
+</script>

@@ -1,0 +1,145 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+    *:focus {
+        outline: none;
+    }
+
+body {
+    font-family: Microsoft JhengHei;
+    background-color: rgba(183, 215, 18, 0.28);
+    padding: 50px;
+}
+
+.login {
+    margin: 20px auto;
+}
+
+.login {
+    margin: 20px auto;
+}
+
+.login-screen {
+    /*background-color: #b1d2e7;
+    background-size: cover;
+    display: block;
+    position: absolute;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px 1px, rgba(0, 0, 0, 0.25) 0 2px 55px 3px;*/
+    background-color: #b1d2e7;
+    background-size: cover;
+    display: block;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 0px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px 1px, rgba(0, 0, 0, 0.25) 0 2px 55px 3px;
+}
+
+.login-logo {
+
+}
+
+.login-form {
+    /*background-color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;*/
+    text-align: center;
+    margin-top: 80px;
+}
+
+.login-imgLogo {
+    width: 225px;
+    height: 77px;
+}
+
+.login-imgMan {
+    width: 7em;
+    height: 7em;
+}
+
+.login-field {
+    display: inline-block;
+    width: 300px;
+}
+
+.control-group {
+    margin-bottom: 10px;
+}
+
+
+
+@media screen and (max-width: 850px) {
+    .login {
+        margin: 20px auto;
+    }
+    .login-imgLogo {
+        width: 202px;
+        height: 70px;
+    }
+    .login-imgMan {
+        width: 5em;
+        height: 5em;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .login {
+        margin: 10px auto;
+    }
+    .login-field {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .login {
+        margin: 10px auto;
+    }
+    .login-field {
+        width: 150px;
+    }
+    .login-screen {
+        background-color: #362C2C;
+        padding: 10px;
+        border-radius: 30px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .login {
+        background-color: #FFFFFF;
+    }
+    .login-imgLogo {
+        display: none;
+    }
+    .login-field {
+        width: 120px;
+    }
+}
+
+
+@media screen and (max-height: 450px) {
+    .login-imgLogo {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 380px) {
+    .login-imgLogo {
+        display: none;
+    }
+    .login-imgMan {
+        display: none;
+    }
+}

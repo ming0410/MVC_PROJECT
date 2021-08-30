@@ -1,0 +1,177 @@
+﻿@using CameoMvc.Areas.RPT.Models;
+@model M_RPT001
+
+<div>
+    <section class="content">
+        @if (@Model.LIST_RM.Count > 0)
+        {
+            if (Model.PHON)
+            {
+                <div class="row">
+                    @foreach (var item in Model.LIST_RM)
+                    {
+                        var cardStyle = (item.Status == "FAIL") ? "card card-outline card-danger collapsed-card" : (item.ReworkNo == "N/A") ? "card card-outline card-success collapsed-card" : "card card-outline card-info collapsed-card";
+
+                        <div id="divCard" class="@cardStyle">
+                            <div class="card-header">
+                                <h5 class="card-title">@item.WTime&nbsp;【@item.WUser】</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col">工  單：@item.WO</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">站  點：@item.Terminal</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">線  別：@item.PdLine</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">料  號：@item.ItemNo</div>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(item.MAC) && item.MAC != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">ＭＡＣ：@item.MAC</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.CSN) && item.CSN != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">出貨序號：@item.CSN</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.BoxNo) && item.BoxNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">彩盒號：@item.BoxNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.CartonNo) && item.CartonNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">外箱號：@item.CartonNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.PalletNo) && item.PalletNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">棧板號：@item.PalletNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.InspNo) && item.InspNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">送驗單：@item.InspNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.QcNo) && item.QcNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">檢驗單：@item.QcNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.ReworkNo) && item.ReworkNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">重工單：@item.ReworkNo</div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.PanelNo) && item.PanelNo != "N/A")
+                                {
+                                    <div class="row">
+                                        <div class="col">連版號：@item.PanelNo</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div id="divList" class="container-fluid table-responsive-sm" style="overflow: auto; height:260px;">
+                    <table class='table table-bordered table-hover table-striped'>
+                        <thead class="thead-dark" id="thFix">
+                            <tr>
+                                <th nowrap="nowrap" style="text-align:center;">工單</th>
+                                <th nowrap="nowrap" style="text-align:center;">料號</th>
+                                <th nowrap="nowrap" style="text-align:center;">生產線</th>
+                                <th nowrap="nowrap" style="text-align:center;">製程</th>
+                                <th nowrap="nowrap" style="text-align:center;">站點</th>
+                                <th nowrap="nowrap" style="text-align:center;">狀態</th>
+                                <th nowrap="nowrap" style="text-align:center;">製程時間</th>
+                                <th nowrap="nowrap" style="text-align:center;">作業人員</th>
+                                <th nowrap="nowrap" style="text-align:center;">出貨序號</th>
+                                <th nowrap="nowrap" style="text-align:center;">MAC位址</th>
+                                <th nowrap="nowrap" style="text-align:center;">送驗單號</th>
+                                <th nowrap="nowrap" style="text-align:center;">檢驗單號</th>
+                                <th nowrap="nowrap" style="text-align:center;">內彩盒號</th>
+                                <th nowrap="nowrap" style="text-align:center;">外箱箱號</th>
+                                <th nowrap="nowrap" style="text-align:center;">棧板號</th>
+                                <th nowrap="nowrap" style="text-align:center;">重工單號</th>
+                                <th nowrap="nowrap" style="text-align:center;">連版號</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LIST_RM)
+                            {
+                                var style = (item.Status == "FAIL") ? "table-danger" : item.ReworkNo == "N/A" ? "" : "table-info";
+                                <tr class="@style">
+                                    <td nowrap="nowrap" style="text-align:center;">@item.WO</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.ItemNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.PdLine</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.Process</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.Terminal</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.Status</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.WTime</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.WUser</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.CSN</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.MAC</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.InspNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.QcNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.BoxNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.CartonNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.PalletNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.ReworkNo</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.PanelNo</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="pager">
+                <table>
+                    <tr class="GridEmptyRowStyle">
+                        <td>無資料</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </section>
+</div>
+
+<style type="text/css">
+    #tbList thead tr {
+        border: 1px solid #ffffff;
+    }
+
+        #tbList thead tr th {
+            position: sticky;
+            top: 0; /* 列首永遠固定於上 */
+            border: 1px solid #ffffff;
+        }
+</style>
+<script type="text/javascript">
+    $("#divList").height($("#div_content").height() - $("#divCard").outerHeight() - 27);
+</script>

@@ -1,0 +1,99 @@
+﻿@using CameoMvc.Areas.SYS.Models;
+@using CameoMvc.Models;
+@model M_SYS001
+
+<div>
+    <section class="content">
+        @if (@Model.LIST_RM.Count > 0)
+        {
+            if (Model.PHON)
+            {
+                <div class="row">
+                    @foreach (var item in Model.LIST_RM)
+                    {
+                        //var cardStyle = (item.TYPE == QAD001_TYPE.LEND) ? "card card-outline card-dark collapsed-card" : "card card-outline card-info collapsed-card";
+                        var cardStyle = "card card-outline card-info collapsed-card";
+                        <div id="divCard" class="@cardStyle">
+                            <div class="card-header">
+                                <h5 class="card-title">姓名：@item.NAME</h5>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col">ID：@item.ID</div>
+                                    <div class="col">工號：@item.NUMBER</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">部門</div>
+                                    <div class="col">@item.DEPT</div>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(item.EMAIL))
+                                {
+                                    <div class="row">
+                                        <div class="col">E-MAIL</div>
+                                        <div class="col">@item.EMAIL</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        @*<blockquote class="table-info">
+                                <p class="m-1 text-primary">棧板：@item.PALLET_NO </p>
+                                <div style="font-size:smaller">
+                                    <p class="m-0">箱號：@item.CARTON_NO</p>
+                                    <p class="m-0">@item.LEND_USER</p>
+                                    <p class="m-0">@item.LEND_TIME</p>
+                                </div>
+                            </blockquote>*@
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="container-fluid table-responsive-sm" style="overflow: auto; height:300px;">
+                    <table class='table table-bordered table-hover table-striped'>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th nowrap="nowrap" style="text-align:center;"></th>
+                                <th nowrap="nowrap" style="text-align:center;">ID</th>
+                                <th nowrap="nowrap" style="text-align:center;">工號</th>
+                                <th nowrap="nowrap" style="text-align:center;">姓名</th>
+                                <th nowrap="nowrap" style="text-align:center;">部門</th>
+                                <th nowrap="nowrap" style="text-align:center;">信箱</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LIST_RM)
+                            {
+                                //var style = (item.TYPE == QAD001_TYPE.LEND) ? "table-light" : "table-info";
+                                var style = "table-light";
+                                <tr class="@style">
+                                    <td nowrap="nowrap" style="text-align:center;"></td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.ID</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.NUMBER</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.NAME</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.DEPT</td>
+                                    <td nowrap="nowrap" style="text-align:center;">@item.EMAIL</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="pager">
+                <table>
+                    <tr class="GridEmptyRowStyle">
+                        <td>無資料</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </section>
+</div>

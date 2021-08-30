@@ -1,0 +1,33 @@
+﻿@using CameoMvc.Areas.MFG.Models;
+@model M_MFG003
+@Html.Raw(TempData["msg"])
+
+@{
+    //預設正式環境背景
+    var Style_body = "background-color: #FFFFFF;";
+
+    //判斷測試環境背景
+    if (Model.ENV_T)
+    {
+        Style_body = "background-color: #FFD800;";
+    }
+}
+
+<div id="div_content" style="@Style_body" class="content-wrapper px-1 py-2">
+    <section class="content">
+        @using (Html.BeginForm("Index", "MFG003", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.FLAG)
+            @Html.HiddenFor(model => model.FAB_ID)
+            @Html.HiddenFor(model => model.USER_ID)
+            @Html.HiddenFor(model => model.USER_NO)
+            @Html.HiddenFor(model => model.USER_NAME)
+            @Html.HiddenFor(model => model.ERR)
+
+            @Html.Partial("_Query", Model)
+            @Html.Partial("_List", Model)
+        }
+    </section>
+</div>

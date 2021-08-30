@@ -1,0 +1,16 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryUI")
+@Scripts.Render("~/bundles/bootstrap")
+
+<!-- jQuery -->
+@*@Scripts.Render("~/Scripts/jquery-3.3.1.min.js")*@
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uitooltip', $.ui.button);
+</script>
+
+<script type="text/javascript" src="~/Scripts/jquery.browser.mobile.js"></script>
+<script type="text/javascript" src="~/Scripts/zxing/zxing.lib.0.18.4.js"></script>
+
+@Scripts.Render("~/Scripts/cameo.js")

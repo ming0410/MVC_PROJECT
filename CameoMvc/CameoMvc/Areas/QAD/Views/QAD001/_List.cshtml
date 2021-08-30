@@ -1,0 +1,154 @@
+﻿@using CameoMvc.Areas.QAD.Models;
+@model M_QAD001
+
+@if (@Model.LIST_RM.Count > 0)
+{
+    if (Model.PHON)
+    {
+        <div class="row">
+            @foreach (var item in Model.LIST_RM)
+            {
+                var cardStyle = (item.TYPE == QAD001_TYPE.LEND) ? "card card-outline card-dark collapsed-card" : "card card-outline card-info collapsed-card";
+                <div id="divCard" class="@cardStyle">
+                    <div class="card-header">
+                        <h5 class="card-title">@item.MODEL_NAME&nbsp;【@item.PART_NO】</h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">棧板：@item.PALLET_NO</div>
+                            <div class="col">箱號：@item.CARTON_NO</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">借出</div>
+                            <div class="col">@item.LEND_USER</div>
+                            <div class="col">@item.LEND_TIME</div>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.BACK_USER))
+                        {
+                            <div class="row">
+                                <div class="col">歸還</div>
+                                <div class="col">@item.BACK_USER</div>
+                                <div class="col">@item.BACK_TIME</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @*<blockquote class="table-info">
+                        <p class="m-1 text-primary">棧板：@item.PALLET_NO </p>
+                        <div style="font-size:smaller">
+                            <p class="m-0">箱號：@item.CARTON_NO</p>
+                            <p class="m-0">@item.LEND_USER</p>
+                            <p class="m-0">@item.LEND_TIME</p>
+                        </div>
+                    </blockquote>*@
+            }
+        </div>
+    }
+    else
+    {
+        <div id="divList" class="" style="overflow: auto; height:288px;">
+            <table id="tbList" class='table table-bordered table-hover table-striped'>
+                <thead class="thead-dark">
+                    <tr>
+                        <th nowrap="nowrap" style="text-align:center;width:150px;">箱號</th>
+                        <th nowrap="nowrap" style="text-align:center;">棧板號</th>
+                        <th nowrap="nowrap" style="text-align:center;">料號</th>
+                        <th nowrap="nowrap" style="text-align:center;">機種</th>
+                        <th nowrap="nowrap" style="text-align:center;">借出所刷條碼</th>
+                        <th nowrap="nowrap" style="text-align:center;">借出人</th>
+                        <th nowrap="nowrap" style="text-align:center;">借出時間</th>
+                        <th nowrap="nowrap" style="text-align:center;">歸還所刷條碼</th>
+                        <th nowrap="nowrap" style="text-align:center;">還刷關聯條碼</th>
+                        <th nowrap="nowrap" style="text-align:center;">歸還人</th>
+                        <th nowrap="nowrap" style="text-align:center;">歸還時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.LIST_RM)
+                    {
+                        var style = (item.TYPE == QAD001_TYPE.LEND) ? "table-light" : "table-info";
+                        <tr class="@style">
+                            <td nowrap="nowrap" style="text-align:center;width:150px;">@item.CARTON_NO</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.PALLET_NO</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.PART_NO</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.MODEL_NAME</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.LEND_SN</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.LEND_USER</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.LEND_TIME</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.BACK_SN</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.BACK_REF_SN</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.BACK_USER</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.BACK_TIME</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+else
+{
+    <div class="pager">
+        <table>
+            <tr class="GridEmptyRowStyle">
+                <td>無資料</td>
+            </tr>
+        </table>
+    </div>
+}
+
+<style type="text/css">
+    #divList {
+        margin: 0px;
+    }
+
+    #tbList thead tr {
+        border: 1px solid #ffffff;
+    }
+
+        #tbList thead tr th {
+            position: sticky;
+            top: -2px; /* 列首永遠固定於上 */
+            border: 1px solid #ffffff;
+        }
+
+    #tbList tr td:nth-child(2) {
+        position: sticky;
+        left: 150px; /* 首行永遠固定於左 */
+        z-index: 2;
+        /* background-color: lightpink; */
+    }
+
+    #tbList thead tr th:nth-child(2) {
+        position: sticky;
+        left: 150px; /* 首行永遠固定於左 */
+        z-index: 3;
+    }
+
+    #tbList tbody tr td:first-child {
+        position: sticky;
+        left: 0px; /* 首行永遠固定於左 */
+        z-index: 3;
+        /* background-color: lightpink; */
+    }
+
+    #tbList thead tr th:first-child {
+        position: sticky;
+        left: 0px; /* 首行永遠固定於左 */
+        z-index: 4;
+    }
+</style>
+
+<script type="text/javascript">
+    let available_height = $("#div_content").height() - $("#divCard").outerHeight() - 27;
+    let list_height = $("#tbList").outerHeight();
+    if (available_height > list_height + 33)
+        available_height = list_height + 33;
+    $("#divList").height(available_height);
+</script>

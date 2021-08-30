@@ -1,0 +1,122 @@
+﻿
+@using CameoMvc.Areas.SMT.Models;
+@model M_SMT002
+
+@{
+    <!-- 抬頭功能名稱 -->
+    var TitleText = Model.FUNC_NAME + "(" + Model.FUNC + ")";
+
+    <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    if (Model.PHON)
+    {
+        divCard_Style = "card collapsed-card";
+        imgCard_Style = "fas fa-plus";
+    }
+}
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">@TitleText</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">防 潮 櫃</div>
+                    </div>
+                    @Html.DropDownListFor(model => model.QM.Device, Model.DLL_DEVS, new { @class = "form-control input-md" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div id="bootstrap-datepicker" class="input-group date">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">查詢日期</div>
+                    </div>
+                    @Html.TextBoxFor(model => model.QM.sDate, new { @class = "form-control datetimepicker-input", @placeholder = "YYYY/MM/DD" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            @Html.CheckBoxFor(model => model.QM.Timing, new { @class = "form-check" })
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" value="定時紀錄模式" disabled="disabled" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            @Html.CheckBoxFor(model => model.QM.Exception, new { @class = "form-check" })
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" value="異常紀錄模式" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button name="button" type="submit" class="btn btn-primary col-12" value="Query">查詢</button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <input id="rdo_Rh" name="selChart" type="radio" value="RH" checked="checked" />
+                        </span>
+                        <input type="text" class="form-control" value="濕度紀錄" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <input id="rdo_Tp" name="selChart" type="radio" value="TP" />
+                        </span>
+                        <input type="text" class="form-control" value="溫度紀錄" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('input[type=radio][name=selChart]').change(function () {
+        if (this.value == 'RH') {
+            $("#divChart_RH").show();
+            $("#divChart_TP").hide();
+        }
+        else if (this.value == 'TP') {
+            $("#divChart_RH").hide();
+            $("#divChart_TP").show();
+        }
+    });
+
+    if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+    }
+    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+    $("#QM_sDate").datepicker({
+        dateFormat: "yy/mm/dd",
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true
+    });
+</script>

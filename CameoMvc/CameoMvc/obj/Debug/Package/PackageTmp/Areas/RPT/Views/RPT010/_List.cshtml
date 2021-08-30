@@ -1,0 +1,140 @@
+﻿@using CameoMvc.Areas.RPT.Models;
+@model M_RPT010
+
+@if (@Model.LIST_RM.Count > 0)
+{
+    if (Model.PHON)
+    {
+        <div class="row">
+            @foreach (var item in Model.LIST_RM)
+            {
+                <div id="divCard" class="card card-outline card-dark collapsed-card">
+                    <div class="card-header">
+                        <h5 class="card-title">@item.WO &nbsp; @item.MODEL</h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">CSN &nbsp; @item.CSN</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">MAC &nbsp; @item.MAC</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">D-LINK &nbsp; @item.DLINK_NO</div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div id="divList" class="" style="overflow: auto; height:288px;">
+            <table id="tbList" class="table table-bordered table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th nowrap="nowrap" style="text-align:center;width:100px;">工單</th>
+                        <th nowrap="nowrap" style="text-align:center;width:150px;">BID</th>
+                        <th nowrap="nowrap" style="text-align:center;">料號</th>
+                        <th nowrap="nowrap" style="text-align:center;">機種</th>
+                        <th nowrap="nowrap" style="text-align:center;">客戶序號</th>
+                        <th nowrap="nowrap" style="text-align:center;">MAC</th>
+                        <th nowrap="nowrap" style="text-align:center;">D-LINK</th>
+                        <th nowrap="nowrap" style="text-align:center;">P-KEY</th>
+                        <th nowrap="nowrap" style="text-align:center;">PUB-KEY</th>
+                        <th nowrap="nowrap" style="text-align:center;">LINK TIME</th>
+                        <th nowrap="nowrap" style="text-align:center;">UPDATE TIME</th>
+                        <th nowrap="nowrap" style="text-align:center;">備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.LIST_RM)
+                    {
+                        <tr class="table-light">
+                            <td nowrap="nowrap" style="text-align:center;width:100px;">@item.WO</td>
+                            <td nowrap="nowrap" style="text-align:center;width:150px;">@item.BID</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.PART_NO</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.MODEL</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.CSN</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.MAC</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.DLINK_NO</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.P_KEY</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.PUB_KEY</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.LINK_TIME</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.UPDATE_TIME</td>
+                            <td nowrap="nowrap" style="text-align:center;">@item.REMARK</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+else
+{
+    <div class="pager">
+        <table>
+            <tr class="GridEmptyRowStyle">
+                <td>無資料</td>
+            </tr>
+        </table>
+    </div>
+}
+
+<style type="text/css">
+    #divList {
+        margin: 0px;
+    }
+
+    #tbList thead tr {
+        border: 1px solid #0d0c0c;
+    }
+
+        #tbList thead tr th {
+            position: sticky;
+            top: -2px; /* 列首永遠固定於上 */
+            border: 1px solid #ffffff;
+        }
+
+    #tbList tr td:nth-child(2) {
+        position: sticky;
+        left: 113px; /* 首行永遠固定於左 */
+        z-index: 3;
+        /* background-color: lightpink; */
+    }
+
+    #tbList thead tr th:nth-child(2) {
+        position: sticky;
+        left: 113px; /* 首行永遠固定於左 */
+        z-index: 4;
+    }
+
+    #tbList tbody tr td:first-child {
+        position: sticky;
+        left: 0px; /* 首行永遠固定於左 */
+        z-index: 4;
+        /* background-color: lightpink; */
+    }
+
+    #tbList thead tr th:first-child {
+        position: sticky;
+        left: 0px; /* 首行永遠固定於左 */
+        z-index: 5;
+    }
+</style>
+
+<script type="text/javascript">
+    let available_height = $("#div_content").height() - $("#divCard").outerHeight() - 27;
+    let list_height = $("#tbList").outerHeight();
+    if (available_height > list_height + 33)
+        available_height = list_height + 33;
+    $("#divList").height(available_height);
+</script>

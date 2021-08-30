@@ -1,0 +1,58 @@
+﻿@using CameoMvc.Areas.MFG.Models;
+@model M_MFG002
+
+@{
+    <!-- 抬頭功能名稱 -->
+    var TitleText = Model.FUNC_NAME + "(" + Model.FUNC + ")";
+
+    <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    if (Model.PHON)
+    {
+        divCard_Style = "card collapsed-card";
+        imgCard_Style = "fas fa-plus";
+    }
+}
+
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">@TitleText</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- 輸入框 -->
+        <!-- 當有多個按鍵時，為了不要直接觸發 Submit，要加入 keypressHandle -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.TYPE_NAME, new { @placeholder = "請輸入異常大類", @class = "form-control", @autofocus = "", @onkeypress = "keypressHandle(event);", })
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.TYPE_NAME)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button id="btnQuery" name="button" type="submit" class="btn btn-lg btn-primary col-12" value="QUERY">查詢</button>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button name="button" type="submit" class="btn btn-lg btn-success col-12" value="SAVE">儲存</button>
+            </div>
+            @*<div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button name="button" type="submit" class="btn btn-lg btn-danger col-12" value="DELETE">刪除</button>
+            </div>*@
+            @*<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                @Html.ActionLink("編輯異常工時", "Index", "MFG001", new { area = "MFG" }, new { @class = "btn btn-lg btn-warning col-12" })
+            </div>*@
+        </div>
+    </div>
+</div>

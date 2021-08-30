@@ -1,0 +1,94 @@
+﻿@using CameoMvc.Areas.TEST.Models;
+@model M_TEST001
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TEST001/Index</title>
+    <link rel="icon" href="/images/CameoLogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="~/Scripts/jquery-ui/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/font.google.css" />
+    <link rel="stylesheet" href="~/Content/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="~/Scripts/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="~/Content/StyleShared.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="~/Scripts/datetimepicker/js/locales/bootstrap-datetimepicker.zh-TW.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/AdminLTE/dist/js/demo.js"></script>
+    <script type="text/javascript" src="~/Scripts/cameo.js"></script>
+
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script type="text/javascript">
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.button);
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#datetimepicker1").datetimepicker({
+                format: "yyyy/mm/dd hh:ii p",
+                language: "zh-TW",
+                todayHighlight: true,
+                showMeridian: true,
+                minuteStep: 10,
+                isInline: true,
+                autoclose: true,
+                initialDate: new Date()
+            })
+
+            $("#picDatePicker").click(function () {
+                $('#datetimepicker1').datetimepicker('show');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="divCard" class="card">
+        <div class="card-header bg-gradient-primary">
+            <h3 class="card-title">TEST001</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">下拉測試</div>
+                        </div>
+                        @Html.DropDownListFor(m => m.Name, Model.MyList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                    <div id="picDatePicker" class="input-group date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="datetimepicker1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button id="btnQuery" name="button" type="submit" class="btn btn-lg btn-primary" value="Query">查詢</button>
+    </div>
+</body>
+</html>

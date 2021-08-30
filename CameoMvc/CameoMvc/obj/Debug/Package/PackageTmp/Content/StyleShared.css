@@ -1,0 +1,220 @@
+﻿thead tr th {
+    position: sticky;
+    top: 0; /* 列首永遠固定於上 */
+}
+
+/* 鏡頭 Div */
+.divVideo {
+    background-color:aqua;
+    border: 2px outset #0066CC;
+}
+
+/* 施工中圖片 */
+.ImgCons {
+    width: 880px;
+    height: 800px;
+}
+
+.divQuery {
+    border: 1px solid #0066CC;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.divFuncBar {
+    padding: 1px 10px;
+    font-size: 20px;
+    font-family: 'Microsoft JhengHei ';
+    background-color: #2ff1df;
+    color: #f6f6f6;
+    border: 1px solid #0066cc;
+    border-radius: 10%;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.imgFuncTitleBar {
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1080px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 660px;
+        height: 600px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1366px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 550px;
+        height: 500px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 550px;
+        height: 500px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 550px;
+        height: 500px;
+    }
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 440px;
+        height: 400px;
+    }
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 600px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 330px;
+        height: 300px;
+    }
+    /* 上方導覽列 時間 */
+    /*#nav_li_txtTime {
+        display: none;
+    }*/
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 500px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 330px;
+        height: 300px;
+    }
+    /* 上方導覽列 時間 */
+    /*#nav_li_txtTime {
+        display: none;
+    }*/
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 350px) and (max-width: 400px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 264px;
+        height: 240px;
+    }
+    /* 上方導覽列 時間 */
+    /*#nav_li_txtTime {
+        display: none;
+    }*/
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+    /* 瀏覽器全畫面功能取消 */
+    /*#li_FullScreen {
+        display: none;
+    }*/
+}
+
+@media screen and (max-width: 350px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 264px;
+        height: 240px;
+    }
+    /* 上方導覽列 時間 */
+    #nav_li_txtTime {
+        display: none;
+    }
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+    /* 瀏覽器全畫面功能取消 */
+    #li_FullScreen {
+        display: none;
+    }
+}
+
+
+
+@media screen and (min-height: 480px) and (max-height: 500px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 330px;
+        height: 300px;
+    }
+    /* 上方導覽列 時間 */
+    /*#nav_li_txtTime {
+        display: none;
+    }*/
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (min-height: 300px) and (max-height: 480px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 330px;
+        height: 300px;
+    }
+    /* 上方導覽列 時間 */
+    /*#nav_li_txtTime {
+        display: none;
+    }*/
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 300px) {
+    /* 施工中圖片 */
+    .ImgCons {
+        width: 330px;
+        height: 300px;
+    }
+    /* 上方導覽列 時間 */
+    #nav_li_txtTime {
+        display: none;
+    }
+    /* 上方導覽列 使用者頭像 */
+    #nav_li_UserMenu {
+        display: none;
+    }
+    /* 瀏覽器全畫面功能取消 */
+    #li_FullScreen {
+        display: none;
+    }
+}

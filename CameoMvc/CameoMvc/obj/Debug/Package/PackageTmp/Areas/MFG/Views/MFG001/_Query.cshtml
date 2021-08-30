@@ -1,0 +1,177 @@
+﻿@using CameoMvc.Areas.MFG.Models;
+@model M_MFG001
+
+@{
+    <!-- 抬頭功能名稱 -->
+    var TitleText = Model.FUNC_NAME + "(" + Model.FUNC + ")";
+    <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    if (Model.PHON)
+    {
+        divCard_Style = "card collapsed-card";
+        imgCard_Style = "fas fa-plus";
+    }
+}
+
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">@TitleText</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- 輸入框 -->
+        <!-- 當有多個按鍵時，為了不要直接觸發 Submit，要加入 keypressHandle -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.WO, new { id = "txt1", @placeholder = "請輸入工單", @class = "form-control", @autofocus = "" })
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.WO)
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">線別</div>
+                    </div>
+                    @if (Model.DDL_PDLINE != null)
+                    {
+                        @Html.DropDownListFor(model => model.QM.PDLINE, Model.DDL_PDLINE, new { @class = "form-control" })
+                    }
+                    else
+                    {
+                        <input type="text" disabled="disabled" class="form-control" />
+                    }
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">報工人數</div>
+                    </div>
+                    @Html.TextBoxFor(x => x.QM.INPUT_MAN, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">編輯大項</div>
+                        @*<span class="btn btn-success col fileinput-button dz-clickable">
+                                <i class="fas fa-edit"></i>
+                                @Html.ActionLink("編輯大項", "Index", "MFG002", new { area = "MFG" }, new { @style = "color: #FFFFFF;" })
+                            </span>*@
+                    </div>
+                    @Html.DropDownListFor(model => model.QM.TYPE_NAME, Model.DLL_TYPE, new { @class = "form-control", onchange = "this.form.submit();" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">編輯小項</div>
+                        @*<span class="btn btn-success col fileinput-button dz-clickable">
+                                <i class="fas fa-edit"></i>
+                                @Html.ActionLink("編輯小項", "Index", "MFG003", new { area = "MFG" }, new { @style = "color: #FFFFFF;" })
+                            </span>*@
+                    </div>
+                    @Html.DropDownListFor(model => model.QM.ITEM_NAME, Model.DLL_ITEM, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.Remark, new { @placeholder = "備註", @class = "form-control", @autofocus = "", @onkeypress = "keypressHandle(event);" })
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.Remark)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group date">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">開始時間</div>
+                    </div>
+                    @Html.TextBoxFor(model => model.QM.DATETIME_S, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group date">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">結束時間</div>
+                    </div>
+                    @Html.TextBoxFor(model => model.QM.DATETIME_E, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">異常時間(秒)</div>
+                    </div>
+                    @Html.TextBoxFor(x => x.QM.SPANTIME, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button id="btnQuery" name="button" type="submit" class="btn btn-lg btn-primary col-12" value="Query">查詢</button>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <button name="button" type="submit" class="btn btn-lg btn-success col-12" value="Save">儲存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#QM_DATETIME_S").datetimepicker({
+            format: "yyyy/mm/dd hh:ii",
+            language: "zh-TW",
+            todayHighlight: true,
+            showMeridian: true,
+            minuteStep: 1,
+            isInline: true,
+            autoclose: true,
+            initialDate: new Date()
+        })
+
+        $("#QM_DATETIME_E").datetimepicker({
+            format: "yyyy/mm/dd hh:ii",
+            language: "zh-TW",
+            todayHighlight: true,
+            showMeridian: true,
+            minuteStep: 1,
+            isInline: true,
+            autoclose: true,
+            initialDate: new Date()
+        })
+    });
+    //function parseDate() {
+    //    let sTime = $("#QM_DATETIME_S").val();
+    //    let eTime = $("#QM_DATETIME_E").val();
+    //    let spTime = DateDifference(sTime, eTime);
+    //    //alert('相差 ' + spTime + '秒');
+    //    $("#QM_SPANTIME").val(spTime);
+    //};
+
+    //// 算出日期與日期間的差距有幾天
+    //function DateDifference(StartDate, EndDate) {
+
+    //    var myStartDate = new Date(StartDate);
+    //    var myEndDate = new Date(EndDate);
+
+    //    // 天數，86400000是24*60*60*1000，除以86400000就是有幾天
+    //    return (myEndDate - myStartDate) / 1000;
+    //}
+
+</script>

@@ -1,0 +1,49 @@
+﻿
+
+@{ //防css,js被cache
+    // var newId = Guid.NewGuid().ToString();
+    const string newId = "20190109003";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES Syste</title>
+    <link rel="icon" href="~/images/Demo.png" type="image/x-icon" />
+    <link rel='stylesheet' href="@Url.Content("~/Content/Site.css?v=newId") " />
+    @{Html.RenderPartial("_SiteCssPartial"); }
+    @RenderSection("Styles", required: false)
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        @{Html.RenderPartial("_LayoutHeaderPartial"); }
+        @{Html.RenderPartial("_LayoutMenuPartial"); }
+        <div class="content-wrapper">
+            <section class="content container-fluid">
+                @RenderBody()
+            </section>
+        </div>
+        @{Html.RenderPartial("_LayoutFooterPartial"); }
+        @{Html.RenderPartial("_LayoutSidebarPartial"); }
+    </div>
+
+    @{Html.RenderPartial("_SiteScriptsPartial"); }
+    @RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    @*MVC換頁,不一定要放在這裏*@
+    <link href="~/Content/pager.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/table/bootstrap-table.js"></script>
+
+    @Html.Raw(ViewBag.message)
+</body>
+</html>

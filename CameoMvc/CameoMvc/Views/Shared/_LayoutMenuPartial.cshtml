@@ -1,0 +1,100 @@
+﻿@using CameoMvc.Models
+@model M_Menu
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <div style="background-color:#367FA9;height:70px">
+        <a href="https://www.cameo.com.tw/">
+            <img src="~/images/CameoLogo_W.png" alt="CAMEO" class="brand-image" style="margin-left:20px;width: 200px;opacity: .8;">
+        </a>
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar" style="font-size:18px;">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @if (Model != null)
+                {
+                    if (Model.Menus != null && Model.Menus.Count > 0)
+                    {
+                        var type1_list = Model.Menus.GroupBy(o => o.Type1).ToDictionary(o => o.Key, o => o.ToList());
+
+                        if (type1_list.Count > 0)
+                        {
+                            foreach (var liType1 in type1_list)
+                            {
+                                string sType1 = liType1.Key;
+                                var type2_list = Model.Menus.Where(a => a.Type1 == sType1).GroupBy(a => a.Type2).ToDictionary(a => a.Key, a => a.ToList());
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-folder"></i>
+                                        <p>
+                                            @sType1
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    @if (type2_list.Count > 0)
+                                    {
+                                        <ul class="nav nav-treeview">
+                                            @foreach (var liType2 in type2_list)
+                                            {
+                                                string sType2 = liType2.Key;
+                                                var type3_list = liType2.Value;
+
+                                                if (sType1 == sType2)
+                                                {
+                                                    foreach (var liType3 in type3_list)
+                                                    {
+                                                        <li class="nav-item">
+                                                            <a href="@Url.Action(liType3.ActnName, liType3.AreaName + "/" + liType3.CtrlName, new { Area = ""})" class="nav-link">
+                                                                <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                                <p>@liType3.Name</p>
+                                                            </a>
+
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            <i class="nav-icon fas fa-square"></i>
+                                                            <p>
+                                                                @sType2
+                                                                <i class="right fas fa-angle-left"></i>
+                                                            </p>
+                                                        </a>
+                                                        @if (type3_list.Count > 0)
+                                                        {
+                                                            <ul class="nav nav-treeview">
+                                                                @foreach (var liType3 in type3_list)
+                                                                {
+                                                                    <li class="nav-item">
+                                                                        <a href="@Url.Action(liType3.ActnName, liType3.AreaName + "/" + liType3.CtrlName, new { Area = ""})" class="nav-link">
+                                                                            <i class="nav-icon fas fa-file text-lightblue"></i>
+                                                                            <p>@liType3.Name</p>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        }
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    }
+                }
+                 <li class="nav-item">
+                     <a href="/HOME/Login" class="nav-link">
+                         <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+                         <p>登出</p>
+                     </a>
+                 </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

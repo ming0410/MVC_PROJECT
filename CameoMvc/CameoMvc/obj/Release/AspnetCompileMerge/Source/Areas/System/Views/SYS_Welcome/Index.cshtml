@@ -1,0 +1,27 @@
+﻿@using CameoMvc.Models;
+@model SYS_Welcome
+@Html.Raw(TempData["msg"])
+
+<div>
+    <div>
+        @using (Html.BeginForm("Index", "SYS_Welcome", FormMethod.Post, new { id = "FORM_SYS_Welcome", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="sexyborder">
+                <div class="function_name_text_box">
+                    <img id="imgFunction" src="~/images/System.png" class="function_name_pic_box">
+                    <span>使用者設定</span>
+                </div>
+                <br />
+                @Html.Partial("_Query", Model)
+            </div>
+            <br />
+            <div class="sexyborder">
+                <div id="listArea">
+                    @Html.Partial("_List", Model.oUSER_MVC_PAGING)
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

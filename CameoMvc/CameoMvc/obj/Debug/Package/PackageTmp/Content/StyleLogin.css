@@ -1,0 +1,147 @@
+﻿* {
+    box-sizing: border-box;
+}
+    *:focus {
+        outline: none;
+    }
+
+.login {
+    margin: 20px auto;
+}
+
+
+.login-screen {
+    background-color: #1A7F91;
+    background-size: cover;
+    display: block;
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 0px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px 1px, rgba(0, 0, 0, 0.25) 0 2px 55px 15px;
+}
+
+.login-logo {
+    margin: 10px auto auto 50px;
+}
+
+.login-field {
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    width: 250px;
+    font-size: 16px;
+    font-weight: 200;
+    margin-left: 10px;
+    padding: 8px 0;
+    transition: border .5s;
+}
+    .login-field:focus {
+        border: 2px solid #3498DB;
+        box-shadow: none;
+    }
+
+
+.login-link {
+    font-size: 12px;
+    color: #444;
+    display: block;
+    margin-top: 12px;
+}
+
+.login-imgLogo {
+    width: 40%;
+    height: 40%;
+}
+
+.login-imgMan {
+    width: 20%;
+    height: 20%;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .login-logo {
+        margin-left: 30px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .login-logo {
+        margin-left: 20px;
+    }
+}
+@media screen and (min-width: 500px) and (max-width: 768px) {
+    .login-screen {
+        border-radius: 20px;
+    }
+    .login-logo {
+        margin-left: 10px;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 500px) {
+    .login-screen {
+        border-radius: 10px;
+    }
+
+    .login-logo {
+        margin-left: 5px;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 450px) {
+    .login-screen {
+        border-radius: 5px;
+    }
+    .login-logo {
+        margin-left: 5px;
+    }
+    .login-imgMan {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 370px) and (max-width: 400px) {
+    .login-imgMan {
+        display: none;
+    }
+    .login-imgLogo {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .login-imgLogo {
+        display: none;
+    }
+
+    .login-imgMan {
+        display: none;
+    }
+}
+
+@media screen and (min-height: 400px) and (max-height: 450px) {
+    .login-imgMan {
+        display: none;
+    }
+}
+@media screen and (min-height: 350px) and (max-height: 400px) {
+    .login-imgMan {
+        display: none;
+    }
+}
+@media screen and (max-height: 350px) {
+    .login-imgLogo {
+        display: none;
+    }
+
+    .login-imgMan {
+        display: none;
+    }
+}

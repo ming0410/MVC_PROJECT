@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cameo MES System</title>
+    <link rel="icon" href="~/images/CameoLogo.png" type="image/x-icon" />
+    @{Html.RenderPartial("_SiteCssPartial"); }
+    @{Html.RenderPartial("_SiteScriptsPartial"); }
+</head>
+<body class="hold-transition sidebar-dark-primary layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        @{Html.RenderPartial("_LayoutHeaderPartial"); }
+
+        <!-- Main Sidebar Container -->
+        @{Html.RenderAction("Menu", "Home", new { area = "" }); }
+        <!-- Content Wrapper. Contains page content -->
+        @RenderBody()
+
+        <!-- /.content-wrapper -->
+        @{Html.RenderPartial("_LayoutFooterPartial"); }
+    </div>
+    <script type="text/javascript">
+        //鍵盤鍵入事件處理
+        function keypressHandle(e) {
+            //判斷是否為 Enter
+            if (e.which == 13) {
+                console.log(e);
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#btnQuery').focus().click();//give your submit an ID
+            }
+        }
+
+        $(function () {
+            //在導覽列的樣式
+            HeadNavbarStyle();
+
+            //修改密碼之 新密碼 顯示/隱藏
+            $('#show_passwordNew').hover(
+                function () {
+                    //Change the attribute to text
+                    $('#txtPasswordNew').attr('type', 'text');
+                    $('#iconEyeNew').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+                },
+                function () {
+                    //Change the attribute back to password
+                    $('#txtPasswordNew').attr('type', 'password');
+                    $('#iconEyeNew').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+                });
+            //修改密碼之 密碼確認 顯示/隱藏
+            $('#show_passwordChk').hover(
+                function () {
+                    //Change the attribute to text
+                    $('#txtPasswordChk').attr('type', 'text');
+                    $('#iconEyeChk').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+                },
+                function () {
+                    //Change the attribute back to password
+                    $('#txtPasswordChk').attr('type', 'password');
+                    $('#iconEyeChk').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+                });
+        });
+
+        //處理 QR Code
+        $(window).on('load', function () {
+            $("#divVideo").dialog({
+                autoOpen: false,
+                show: { effect: "blind", duration: 1000 },
+                hide: { effect: "explode", duration: 1000 }
+            });
+
+            let selectedDeviceId;
+            let InputId;
+            const codeReader = new ZXing.BrowserMultiFormatReader();
+            console.log('ZXing code reader initialized');
+            codeReader.listVideoInputDevices()
+                .then((videoInputDevices) => {
+                    const sourceSelect = $("#sourceSelect").get(0);
+                    if (videoInputDevices.length >= 1) {
+                        videoInputDevices.reverse();
+                        selectedDeviceId = videoInputDevices[0].deviceId;
+                        videoInputDevices.forEach((element) => {
+                            const sourceOption = document.createElement('option');
+                            console.log(element);
+                            sourceOption.text = element.label;
+                            sourceOption.value = element.deviceId;
+                            sourceSelect.appendChild(sourceOption);
+                        })
+
+                        sourceSelect.onchange = () => {
+                            codeReader.reset();
+                            $("#txt1").val('');
+                            console.log('Reset.');
+                            selectedDeviceId = sourceSelect.value;
+                            
+                            codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+                                if (result) {
+                                    console.log(result);
+                                    document.getElementById(InputId).value = result.text;
+
+                                    $('#modal-qr').modal('hide');
+                                    //$("#divVideo").dialog("close");
+                                }
+                                if (err && !(err instanceof ZXing.NotFoundException)) {
+                                    console.error(err);
+                                    document.getElementById(InputId).value = err;
+                                }
+                            })
+                            console.log('Started continous decode from camera with id ${selectedDeviceId}');
+                        };
+                        $("#SelectSrc").css('display', 'block');
+                        $("#ChangeSrc").css('display', 'none');
+                    }
+                    else if (videoInputDevices.length = 10) {
+                        $("#SelectSrc").css('display', 'none');
+                        $("#ChangeSrc").css('display', 'block');
+                        $("#ChangeSrc").on('click', function () { });
+                    }
+                    else {
+                        $('#modal-qr').css('display', 'none');
+                        //$("#divVideo").css('display', 'none');
+                    }
+
+                    $('[id^=btnScan]').on('click', function () {
+                        InputId = $(this).attr('name');
+
+                        //$("#divVideo").dialog("open");
+
+                        codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+                            if (result) {
+                                console.log(result);
+                                document.getElementById(InputId).value = result.text;
+
+                                $('#modal-qr').modal('hide');
+                                //$("#divVideo").dialog("close");
+                            }
+                            if (err && !(err instanceof ZXing.NotFoundException)) {
+                                console.error(err);
+                                document.getElementById(InputId).value = err;
+                            }
+                        })
+                        console.log('Started continous decode from camera with id ${selectedDeviceId}');
+                    });
+
+                })
+                .catch((err) => {
+                    console.error(err)
+                })
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿@using CameoMvc.Areas.SYS.Models;
+@model M_SYS990
+@Html.Raw(TempData["msg"])
+
+@{
+    //預設正式環境背景
+    var Style_body = "background-color: #FFFFFF;";
+
+    //判斷測試環境背景
+    if (Model.ENV_T)
+    {
+        Style_body = "background-color: #FFD800;";
+    }
+}
+
+<div id="div_content" style="@Style_body" class="content-wrapper px-1 py-2">
+    <section class="content">
+        @using (Html.BeginForm("Index", "SYS990", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.FLAG)
+            @Html.HiddenFor(model => model.FAB_ID)
+            @Html.HiddenFor(model => model.USER_ID)
+
+            <div> @Html.DisplayFor(model => model.USER_NO) </div>
+            <div> @Html.DisplayFor(model => model.USER_NAME) </div>
+            <hr size="20" color="blue">
+            <!--判斷是否為行動裝置開啟網頁-->
+            <div> USER_ANGET：@Html.DisplayFor(model => model.USER_ANGET) </div>
+            <hr size="20" color="blue">
+            <div> BROWSER：@Html.DisplayFor(model => model.BROWSER) </div>
+            <hr size="20" color="blue">
+            <div> @Html.CheckBoxFor(model => model.PHON) 手機</div>
+            <div> @Html.CheckBoxFor(model => model.MOBL) 行動裝置</div>
+            <hr size="20" color="blue">
+            <div>
+                <input id="SYS990_chkPhone" type="checkbox" /> 手機
+            </div>
+            <div>
+                <input id="SYS990_chkMobil" type="checkbox" /> 行動裝置
+            </div>
+        }
+    </section>
+</div>
+<script type="text/javascript">
+    var isPhone = checkPhone();
+    var isMobil = checkMobile();
+    $('#SYS990_chkPhone').prop('checked', isPhone);
+    $('#SYS990_chkMobil').prop('checked', isMobil);
+</script>
+

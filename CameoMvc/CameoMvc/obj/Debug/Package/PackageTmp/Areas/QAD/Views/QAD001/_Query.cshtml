@@ -1,0 +1,104 @@
+﻿@using CameoMvc.Areas.QAD.Models;
+@model M_QAD001
+
+@{
+    <!-- 抬頭功能名稱 -->
+    var TitleText = Model.FUNC_NAME + "(" + Model.FUNC + ")";
+
+    <!-- 判斷是否為行動裝置，以採用對應的樣式 -->
+    //預設為展開
+    var divCard_Style = "card";
+    var imgCard_Style = "fas fa-minus";
+
+    //行動裝置，改為縮合
+    //if (Model.PHON)
+    //{
+    //    divCard_Style = "card collapsed-card";
+    //    imgCard_Style = "fas fa-plus";
+    //}
+}
+
+<!-- 導入 QR Code Reader -->
+<div id="modal-qr" class="modal fade show" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" width="400">
+            <div class="modal-header">
+                <!-- 選擇影像來源 -->
+                <div id="SelectSrc" style="display:none">
+                    <label for="sourceSelect">選擇鏡頭</label>
+                    <select id="sourceSelect" style="max-width:400px"></select>
+                </div>
+                <div id="ChangeSrc">
+                    <a class="btn btn-app bg-success">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        更換鏡頭
+                    </a>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video id="video" width="400" height="300"></video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divCard" class="@divCard_Style">
+    <div class="card-header bg-gradient-primary">
+        <h3 class="card-title">@TitleText</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="收合">
+                <i class="@imgCard_Style"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- 輸入框 -->
+        <!-- 當有多個按鍵時，為了不要直接觸發 Submit，要加入 keypressHandle -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.CSN, new { id = "txt1", @placeholder = "借出箱號或產品序號(CSN)", @class = "form-control", @autofocus = "", @onkeypress = "keypressHandle(event);" })
+                    <div id="btnScan1" name="txt1" class="input-group-addon" data-toggle="modal" data-target="#modal-qr">
+                        <div class="input-group-text">
+                            <span class="fas fa-barcode"></span>
+                        </div>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.QM.CSN)
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.QM.REF, new { id = "txt2", @placeholder = "同棧板上另一箱號或產品序號(CSN)", @class = "form-control" })
+                    <div id="btnScan2" name="txt2" class="input-group-addon" data-toggle="modal" data-target="#modal-qr">
+                        <div class="input-group-text">
+                            <span class="fas fa-barcode"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <button name="button" type="submit" class="btn btn-primary col-12" value="Query" id="btnQuery">查詢</button>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <button name="button" type="submit" class="btn btn-success col-12" value="Lend">借出</button>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <button name="button" type="submit" class="btn btn-danger col-12" value="Back">歸還</button>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <span class="btn btn-info col fileinput-button dz-clickable">
+                    <i class="fas fa-table"></i>
+                    @Html.ActionLink("查詢歷史紀錄", "Index", "QAD002", new { area = "QAD" }, new { @style = "color: #FFFFFF;" })
+                </span>
+                @*<input type="button" class="btn btn-info  col-12" value="查詢歷史紀錄" onclick="location.href='@Url.Action("Index", "QAD002", new { area = "QAD" })'" />*@
+            </div>
+        </div>
+    </div>
+</div>
